@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="chessboard-0.1.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../downloads 1/chessboard-0.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/chessboard-0.1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
