@@ -156,6 +156,7 @@ public class ChessPanel extends JPanel{
 
     public void update(){
         this.board = this.game.getGameBoard();
+        this.pieces = board.getBoard();
         repaint();
     }
 }
