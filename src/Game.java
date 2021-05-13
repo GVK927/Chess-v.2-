@@ -28,6 +28,7 @@ public class Game {
     }
 
     public void restart(){
+        white_turn = true;
         game_board.resetBoard();
         System.out.println(game_board.toString());
         gui.getChessPanel().update();
