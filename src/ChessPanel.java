@@ -1,5 +1,4 @@
-import com.jaeheonshim.chessboard.Board;
-import com.jaeheonshim.chessboard.Spot;
+import com.jaeheonshim.chessboard.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -126,7 +125,7 @@ public class ChessPanel extends JPanel{
                             break;
                         }
                         if (j.getPiece()!=null && j.getPiece().canMove(board, board.getKing(false).getSpot(board))){
-                            new WinDialog(game, false);
+                            new WinDialog(game, true);
                             a = true;
                             break;
                         }
