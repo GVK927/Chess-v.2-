@@ -17,6 +17,7 @@ public class GameGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
