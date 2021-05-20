@@ -8,6 +8,5 @@ public class Main {
             e.printStackTrace();
         }
         new Game();
-        //TODO класс пешки 41-я строчка - починить первый ход(проверка на препятствие)
     }
 }
