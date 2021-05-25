@@ -90,7 +90,6 @@ public class ChessPanel extends JPanel{
         this.pieces = board.getBoard();
 
         setBounds(0, 0, GameGUI.HEIGHT, GameGUI.HEIGHT);
-        setBackground(Color.BLACK);
         setLayout(null);
         setFocusable(true);
         setPreferredSize(new Dimension(GameGUI.WIDTH, GameGUI.HEIGHT));
@@ -116,7 +115,6 @@ public class ChessPanel extends JPanel{
                 isBeginning = true;
                 selected_x = -1;
                 repaint();
-                boolean a = false;
                 if(board.getKing(true).inCheckmate(board))
                     new WinDialog(game, false);
                 if(board.getKing(false).inCheckmate(board))

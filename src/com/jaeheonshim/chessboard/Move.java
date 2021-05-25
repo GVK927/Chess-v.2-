@@ -21,7 +21,6 @@ public class Move {
     public Spot getStart() {
         return start;
     }
-
     public Spot getEnd() {
         return end;
     }

@@ -36,7 +36,7 @@ public class King extends Piece {
         if (canCastle(board)) {
             if (end.getX() == 2) {
                 for (int i = getSpot(board).getX() - 1; i > 0; i--) {
-                    if (board.getSpot(i, end.getY()).getPiece() != null) {
+                    if (board.getSpot(i, getSpot(board).getY()).getPiece() != null) {
                         return false;
                     }
                 }
@@ -62,7 +62,7 @@ public class King extends Piece {
                 return true;
             } else if (end.getX() == 6) {
                 for (int i = getSpot(board).getX() + 1; i < 7; i++) {
-                    if (board.getSpot(i, end.getY()).getPiece() != null) {
+                    if (board.getSpot(i, getSpot(board).getY()).getPiece() != null) {
                         return false;
                     }
                 }
