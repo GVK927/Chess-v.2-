@@ -40,6 +40,8 @@ public class Board {
                 board[i][j] = new Spot(j, i, null);
             }
         }
+
+        moves = new ArrayList<>();
     }
 
     /**
