@@ -11,7 +11,7 @@ public class Queen extends Piece {
 	 @Override public boolean canMove (Board board, Spot start, Spot end) {
 		  if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
 				return false;
-		  } else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board)) {
+		  } else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece()) {
 			  return false;
 		  }
 
@@ -22,7 +22,7 @@ public class Queen extends Piece {
 				end.setPiece(this);
 				start.setPiece(null);
 
-				if (board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board)) {
+				if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece())) {
 					 end.setPiece(tempPiece);
 					 tempSpot.setPiece(this);
 					 return false;

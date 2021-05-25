@@ -390,4 +390,28 @@ public class Board {
 
         return sb.toString();
     }
+
+
+
+    public Spot findCheckPiece(){
+        if(getKing(true)!=null && getKing(true).inCheck(this)){
+            for (Spot[] spots : getBoard()) {
+                for (Spot spot : spots) {
+                    if (spot.getPiece() != null && !(spot.getPiece() instanceof King) && !spot.getPiece().isWhite() && spot.getPiece().canMove(this, spot, this.getKing(true).getSpot(this), false)) {
+                        return spot;
+                    }
+                }
+            }
+        }
+        if(getKing(false)!=null && getKing(false).inCheck(this)){
+            for (Spot[] spots : getBoard()) {
+                for (Spot spot : spots) {
+                    if (spot.getPiece() != null && !(spot.getPiece() instanceof King) && spot.getPiece().isWhite() && spot.getPiece().canMove(this, spot, this.getKing(false).getSpot(this), false)) {
+                        return spot;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -16,7 +16,7 @@ public class Rook extends Piece {
                 // can't kill piece of same color
                 return false;
             }
-        } else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board)) {
+        } else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece()) {
             return false;
         }
 
@@ -27,7 +27,7 @@ public class Rook extends Piece {
             end.setPiece(this);
             start.setPiece(null);
 
-            if (board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board)) {
+            if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece())) {
                 end.setPiece(tempPiece);
                 tempSpot.setPiece(this);
                 return false;

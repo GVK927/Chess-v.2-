@@ -14,7 +14,7 @@ public class Knight extends Piece {
 	 @Override public boolean canMove (Board board, Spot start, Spot end) {
 	 	 if(end.getX() > 8 || end.getX() < 0 || end.getY() > 8 || end.getY() < 0) {
 	 	 	 return false;
-		 } else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board)) {
+		 } else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece()) {
 			 return false;
 		 }
 
@@ -25,7 +25,7 @@ public class Knight extends Piece {
 				end.setPiece(this);
 				start.setPiece(null);
 
-				if (board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board)) {
+				if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece())) {
 					 end.setPiece(tempPiece);
 					 tempSpot.setPiece(this);
 					 return false;

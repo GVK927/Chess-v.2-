@@ -148,6 +148,11 @@ public class King extends Piece {
         if (this.inCheck(board)) {
             for (Spot[] spots : board.getBoard()) {
                 for (Spot spot : spots) {
+
+                    if(spot.getPiece()!=null && spot.getPiece().canMove(board, board.findCheckPiece()))
+                        return false;
+
+
                     if (this.canMove(board, spot)) {
                         Piece tempPiece = spot.getPiece();
                         Spot tempSpot = getSpot(board);
