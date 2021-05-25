@@ -19,7 +19,6 @@ public class King extends Piece {
             return false;
         }
     }
-
     public boolean canCastleKingside(Board board) {
         if (canCastle(board)) {
             if(isWhite()) {
@@ -120,7 +119,6 @@ public class King extends Piece {
 
         return true;
     }
-
     public boolean canCastle(Board board) {
         if (!isMoved() && !inCheck(board)) {
             for (Spot[] spots : board.getBoard()) {
@@ -146,7 +144,6 @@ public class King extends Piece {
 
         return false;
     }
-
     public boolean inCheckmate(Board board) {
         if (this.inCheck(board)) {
             for (Spot[] spots : board.getBoard()) {
@@ -155,8 +152,8 @@ public class King extends Piece {
                         Piece tempPiece = spot.getPiece();
                         Spot tempSpot = getSpot(board);
 
-                        spot.setPiece(this);
                         getSpot(board).setPiece(null);
+                        spot.setPiece(this);
                         if (!this.inCheck(board)) {
                             spot.setPiece(tempPiece);
                             tempSpot.setPiece(this);

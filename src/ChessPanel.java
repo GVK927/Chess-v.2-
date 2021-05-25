@@ -117,21 +117,10 @@ public class ChessPanel extends JPanel{
                 selected_x = -1;
                 repaint();
                 boolean a = false;
-                for(Spot[] i:pieces){
-                    for(Spot j:i) {
-                        if (j.getPiece()!=null && j.getPiece().canMove(board, board.getKing(true).getSpot(board))){
-                            new WinDialog(game, false);
-                            a = true;
-                            break;
-                        }
-                        if (j.getPiece()!=null && j.getPiece().canMove(board, board.getKing(false).getSpot(board))){
-                            new WinDialog(game, true);
-                            a = true;
-                            break;
-                        }
-                    }
-                    if(a) break;
-                }
+                if(board.getKing(true).inCheckmate(board))
+                    new WinDialog(game, false);
+                if(board.getKing(false).inCheckmate(board))
+                    new WinDialog(game, true);
             }
 
             @Override
