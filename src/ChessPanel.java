@@ -101,6 +101,7 @@ public class ChessPanel extends JPanel{
             private int x1, y1;
             @Override
             public void mouseReleased (MouseEvent e) {
+                if(e.getX()<=20||e.getX()>=738||e.getY()<=20||e.getY()>=738) return;
                 if(isBeginning) {
                     if(pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())].getPiece()==null) return;
                     if(pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())].getPiece() instanceof EnPassant) return;

@@ -15,6 +15,8 @@ public class Board {
     private Spot[][] board = new Spot[8][8];
     private List<Move> moves = new ArrayList<>();
 
+    private int halfmoves_count = 0;
+
     public Board() {
         resetBoard();
     }
@@ -141,36 +143,23 @@ public class Board {
             return false;
         }
 
-        if (begin.getPiece() instanceof King && ((King) begin.getPiece()).canCastle(this) && (end.getX() == 2 ^ end.getX() == 6)) {
-            // castling implementation
-            if (begin.getPiece().canMove(this, begin, end)) {
-                if (end.getX() == 2) {
-                    end.setPiece(begin.getPiece());
-                    begin.setPiece(null);
-                    Piece rook = this.getSpot(0, end.getY()).getPiece();
-                    this.getSpot(0, end.getY()).setPiece(null);
-                    this.getSpot(end.getX() + 1, end.getY()).setPiece(rook);
-
-                    moves.add(move);
-                    return true;
-                } else if (end.getX() == 6) {
-                    end.setPiece(begin.getPiece());
-                    begin.getPiece().setMoved();
-                    begin.setPiece(null);
-                    Piece rook = this.getSpot(7, end.getY()).getPiece();
-                    this.getSpot(7, end.getY()).setPiece(null);
-                    this.getSpot(end.getX() - 1, end.getY()).setPiece(rook);
-                    rook.setMoved();
-
-                    moves.add(move);
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
+        if (begin.getPiece() instanceof King) {
+            if(end.getY()==begin.getY() && end.getX()==2){
+                if(((King) begin.getPiece()).canCastleQueenside(this))  castle(begin, end);
+                halfmoves_count++;
+                moves.add(move);
+                updateEnPassant();
+                return true;
+            }
+            if(end.getY()==begin.getY() && end.getX()==6){
+                if(((King) begin.getPiece()).canCastleKingside(this))  castle(begin, end);
+                halfmoves_count++;
+                moves.add(move);
+                updateEnPassant();
+                return true;
             }
         } else if (begin.getPiece() != null && begin.getPiece().canMove(this, begin, end)) {
+            boolean halfmove_flag = begin.getPiece() instanceof Pawn;
             if (end.getPiece() != null) {
                 if(end.getPiece() instanceof EnPassant && end.getPiece().isWhite() != begin.getPiece().isWhite()){
                     ((EnPassant) end.getPiece()).getParentPawn().getPiece().setKilled(true);
@@ -179,17 +168,23 @@ public class Board {
                     end.getPiece().setKilled(true);
                     end.setPiece(null);
                 }
+                halfmove_flag = true;
             }
             end.setPiece(begin.getPiece());
             begin.getPiece().setMoved();
             begin.setPiece(null);
 
             if ((end.getPiece() instanceof Pawn) && (end.getPiece().isWhite() ? end.getY() == 7 : end.getY() == 0)) {
-                end.setPiece(new Queen(end.getPiece().isWhite()));
+                end.setPiece(new Queen(end.getPiece().isWhite(), true));
             }
-
             if (end.getPiece() instanceof Pawn && Math.abs(end.getY()-begin.getY()) == 2){
                 this.getSpot(begin.getX(), end.getY()+(end.getPiece().isWhite()?-1:1)).setPiece(new EnPassant(end));
+            }
+
+            if(halfmove_flag){
+                halfmoves_count = 0;
+            }else {
+                halfmoves_count++;
             }
 
             moves.add(move);
@@ -198,6 +193,7 @@ public class Board {
         } else {
             return false;
         }
+        return false;
     }
 
     /**
@@ -312,19 +308,27 @@ public class Board {
         fenBuilder.append(" ");
 
         boolean canCastle = false;
-        if (getKing(true).canCastleKingside(this)) {
+        if(
+                getSpot(4, 0).getPiece() != null &&
+                getSpot(7, 0).getPiece() != null &&
+                getSpot(0, 0).getPiece() != null &&
+                getSpot(4, 7).getPiece() != null &&
+                getSpot(7, 7).getPiece() != null &&
+                getSpot(0, 7).getPiece() != null
+        )
+        if (!getSpot(4, 0).getPiece().isMoved()&&!getSpot(7, 0).getPiece().isMoved()) {
             canCastle = true;
             fenBuilder.append("K");
         }
-        if (getKing(true).canCastleQueenside(this)) {
+        if (!getSpot(4, 0).getPiece().isMoved()&&!getSpot(0, 0).getPiece().isMoved()) {
             canCastle = true;
             fenBuilder.append("Q");
         }
-        if (getKing(false).canCastleKingside(this)) {
+        if (!getSpot(4, 7).getPiece().isMoved()&&!getSpot(7, 7).getPiece().isMoved()) {
             canCastle = true;
             fenBuilder.append("k");
         }
-        if (getKing(false).canCastleQueenside(this)) {
+        if (!getSpot(4, 7).getPiece().isMoved()&&!getSpot(0, 7).getPiece().isMoved()) {
             canCastle = true;
             fenBuilder.append("q");
         }
@@ -336,7 +340,7 @@ public class Board {
         fenBuilder.append(" ");
         fenBuilder.append(getFenEnPassant());
         fenBuilder.append(" ");
-        fenBuilder.append("0"); //TODO implement halfmoves
+        fenBuilder.append(halfmoves_count);
         fenBuilder.append(" ");
         fenBuilder.append(moves.size() / 2 + 1);
 
@@ -395,6 +399,21 @@ public class Board {
         }
 
         return sb.toString();
+    }
+
+    private void castle(Spot start, Spot end){
+        if(end.getX()==2){
+            getSpot(end.getX(), end.getY()).setPiece(start.getPiece());
+            getSpot(3, end.getY()).setPiece(getSpot(0, end.getY()).getPiece());
+            getSpot(0, end.getY()).setPiece(null);
+            getSpot(start.getX(), start.getY()).setPiece(null);
+        }
+        if(end.getX()==6){
+            getSpot(end.getX(), end.getY()).setPiece(start.getPiece());
+            getSpot(5, end.getY()).setPiece(getSpot(7, end.getY()).getPiece());
+            getSpot(7, end.getY()).setPiece(null);
+            getSpot(start.getX(), start.getY()).setPiece(null);
+        }
     }
 
     private void updateEnPassant(){

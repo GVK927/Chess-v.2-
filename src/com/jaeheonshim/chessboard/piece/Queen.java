@@ -7,6 +7,10 @@ public class Queen extends Piece {
 	 public Queen (boolean white) {
 		  super(white);
 	 }
+	 public Queen (boolean white, boolean moved){
+	 	super(white);
+	 	this.moved = moved;
+	 }
 
 	 @Override public boolean canMove (Board board, Spot start, Spot end) {
 		  if (end.getPiece() != null && !(end.getPiece() instanceof EnPassant) && end.getPiece().isWhite() == this.isWhite()) {

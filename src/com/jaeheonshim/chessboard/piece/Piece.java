@@ -11,7 +11,7 @@ import com.jaeheonshim.chessboard.Square;
  */
 public abstract class Piece {
     private boolean killed = false;
-    private boolean moved = false;
+    protected boolean moved = false;
     protected boolean white;
     protected boolean checkKingInCheck = true;
 

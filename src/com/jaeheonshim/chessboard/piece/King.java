@@ -9,84 +9,51 @@ public class King extends Piece {
     }
 
     public boolean canCastleQueenside(Board board) {
-        if (canCastle(board)) {
-            if(isWhite()) {
-                return !board.getSpot(2, 0).getPiece().isMoved();
-            } else {
-                return !board.getSpot(2, 7).getPiece().isMoved();
+        if(
+                !inCheck(board) &&
+                !isMoved() &&
+                (board.getSpot(0, getSpot(board).getY()).getPiece() instanceof Rook) &&
+                !board.getSpot(0, getSpot(board).getY()).getPiece().isMoved()
+        ){
+            for(int i = 2; i<4; i++){
+                if(board.getSpot(i, getSpot(board).getY()).getPiece() != null) return false;
+                for(Spot[] spots:board.getBoard()){
+                    for(Spot spot:spots){
+                        if(spot.getPiece() != null && spot.getPiece().isWhite() != isWhite() && spot.getPiece().canMove(board, board.getSpot(i, this.getSpot(board).getY())))
+                            return false;
+                    }
+                }
             }
-        } else {
-            return false;
+            return true;
         }
+        return false;
     }
     public boolean canCastleKingside(Board board) {
-        if (canCastle(board)) {
-            if(isWhite()) {
-                return !board.getSpot(6, 0).getPiece().isMoved();
-            } else {
-                return !board.getSpot(6, 7).getPiece().isMoved();
+        if(
+                !inCheck(board) &&
+                !isMoved() &&
+                (board.getSpot(7, getSpot(board).getY()).getPiece() instanceof Rook) &&
+                !board.getSpot(7, getSpot(board).getY()).getPiece().isMoved()
+        ){
+            for(int i = 5; i<7; i++){
+                if(board.getSpot(i, getSpot(board).getY()).getPiece() != null) return false;
+                for(Spot[] spots:board.getBoard()){
+                    for(Spot spot:spots){
+                        if(spot.getPiece() != null && spot.getPiece().isWhite() != isWhite() && spot.getPiece().canMove(board, board.getSpot(i, this.getSpot(board).getY())))
+                            return false;
+                    }
+                }
             }
-        } else {
-            return false;
+            return true;
         }
+        return false;
     }
 
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
-        if (canCastle(board)) {
-            if (end.getX() == 2) {
-                for (int i = getSpot(board).getX() - 1; i > 0; i--) {
-                    if (board.getSpot(i, getSpot(board).getY()).getPiece() != null) {
-                        return false;
-                    }
-                }
-
-                for (int i = getSpot(board).getX() - 1; i > 0; i--) {
-                    Spot tempSpot = this.getSpot(board);
-
-                    Piece tempPiece = board.getSpot(i, end.getY()).getPiece();
-
-                    board.getSpot(i, end.getY()).setPiece(this);
-                    tempSpot.setPiece(null);
-
-                    if (this.inCheck(board)) {
-                        board.getSpot(i, end.getY()).setPiece(tempPiece);
-                        tempSpot.setPiece(this);
-                        return false;
-                    }
-
-                    board.getSpot(i, end.getY()).setPiece(tempPiece);
-                    tempSpot.setPiece(this);
-                }
-
-                return true;
-            } else if (end.getX() == 6) {
-                for (int i = getSpot(board).getX() + 1; i < 7; i++) {
-                    if (board.getSpot(i, getSpot(board).getY()).getPiece() != null && !(board.getSpot(i, getSpot(board).getY()).getPiece() instanceof EnPassant)) {
-                        return false;
-                    }
-                }
-
-                for (int i = getSpot(board).getX() + 1; i < 7; i++) {
-                    Spot tempSpot = this.getSpot(board);
-
-                    Piece tempPiece = board.getSpot(i, end.getY()).getPiece();
-
-                    board.getSpot(i, end.getY()).setPiece(this);
-                    tempSpot.setPiece(null);
-
-                    if (this.inCheck(board)) {
-                        board.getSpot(i, end.getY()).setPiece(tempPiece);
-                        tempSpot.setPiece(this);
-                        return false;
-                    }
-
-                    board.getSpot(i, end.getY()).setPiece(tempPiece);
-                    tempSpot.setPiece(this);
-                }
-
-                return true;
-            }
+        if(end.getY() == start.getY()&&!isMoved()){
+            if(end.getX()==2) return canCastleQueenside(board);
+            if(end.getX()==6) return canCastleKingside(board);
         }
 
         if (end.getPiece() != null && !(end.getPiece() instanceof EnPassant) && end.getPiece().isWhite() == this.isWhite()) {
