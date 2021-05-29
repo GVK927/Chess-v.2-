@@ -1,4 +1,5 @@
 import com.jaeheonshim.chessboard.*;
+import com.jaeheonshim.chessboard.piece.EnPassant;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -57,6 +58,7 @@ public class ChessPanel extends JPanel{
 
         for(int i = 0; i<pieces.length; i++){
             for(int j = 0; j<pieces.length; j++){
+                if(pieces[pieces.length-j-1][i].getPiece() instanceof EnPassant) continue;
                 g.drawImage(pieces_images.get(pieces[pieces.length-j-1][i].toString()), translateCoords(i), translateCoords(j), null);
             }
         }
@@ -101,6 +103,7 @@ public class ChessPanel extends JPanel{
             public void mouseReleased (MouseEvent e) {
                 if(isBeginning) {
                     if(pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())].getPiece()==null) return;
+                    if(pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())].getPiece() instanceof EnPassant) return;
                     if(pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())].getPiece().isWhite()!=game.isWhite_turn()) return;
                     x1 = translateChessCoords(e.getX());
                     y1 = translateChessCoords(getHeight()-e.getY());
@@ -119,6 +122,7 @@ public class ChessPanel extends JPanel{
                     new WinDialog(game, false);
                 if(board.getKing(false).inCheckmate(board))
                     new WinDialog(game, true);
+                System.out.println(board.getFenRecord());
             }
 
             @Override

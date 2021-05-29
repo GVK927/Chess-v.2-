@@ -43,7 +43,6 @@ public class Board {
 
         moves = new ArrayList<>();
     }
-
     /**
      * Helper method for setting the board to a classic chess state
      *
@@ -133,12 +132,10 @@ public class Board {
     public boolean move(Spot begin, Spot end) {
         return move(begin, end, false);
     }
-
-    public boolean moveIgnoreTurn(Spot begin, Spot end) {
-        return move(begin, end, true);
-    }
-
     private boolean move(Spot begin, Spot end, boolean ignoreTurn) {
+        if((begin.getPiece() instanceof EnPassant)){
+            return false;
+        }
         Move move = new Move(begin, end, isWhiteTurn());
         if (!ignoreTurn && begin.getPiece().isWhite() != isWhiteTurn()) {
             return false;
@@ -175,18 +172,28 @@ public class Board {
             }
         } else if (begin.getPiece() != null && begin.getPiece().canMove(this, begin, end)) {
             if (end.getPiece() != null) {
-                end.getPiece().setKilled(true);
-                end.setPiece(null);
+                if(end.getPiece() instanceof EnPassant && end.getPiece().isWhite() != begin.getPiece().isWhite()){
+                    ((EnPassant) end.getPiece()).getParentPawn().getPiece().setKilled(true);
+                    ((EnPassant) end.getPiece()).getParentPawn().setPiece(null);
+                }else {
+                    end.getPiece().setKilled(true);
+                    end.setPiece(null);
+                }
             }
             end.setPiece(begin.getPiece());
             begin.getPiece().setMoved();
             begin.setPiece(null);
 
-            if (end.getPiece() instanceof Pawn && end.getPiece().isWhite() ? end.getY() == 7 : end.getY() == 0) {
+            if ((end.getPiece() instanceof Pawn) && (end.getPiece().isWhite() ? end.getY() == 7 : end.getY() == 0)) {
                 end.setPiece(new Queen(end.getPiece().isWhite()));
             }
 
+            if (end.getPiece() instanceof Pawn && Math.abs(end.getY()-begin.getY()) == 2){
+                this.getSpot(begin.getX(), end.getY()+(end.getPiece().isWhite()?-1:1)).setPiece(new EnPassant(end));
+            }
+
             moves.add(move);
+            updateEnPassant();
             return true;
         } else {
             return false;
@@ -327,7 +334,7 @@ public class Board {
         }
 
         fenBuilder.append(" ");
-        fenBuilder.append("-"); //TODO update when en passant is implemented
+        fenBuilder.append(getFenEnPassant());
         fenBuilder.append(" ");
         fenBuilder.append("0"); //TODO implement halfmoves
         fenBuilder.append(" ");
@@ -368,19 +375,18 @@ public class Board {
 
         return stringBuilder.toString();
     }
-
     private String getRowAsString(int row) {
         StringBuilder sb = new StringBuilder(8);
         int blankCount = 0;
         for (int i = 0; i < board[row].length; i++) {
             Piece piece = board[row][i].getPiece();
-            if (piece == null) {
+            if (piece == null || (piece instanceof EnPassant)) {
                 blankCount++;
             } else if (blankCount > 0) {
-                sb.append(blankCount);
+                sb.append(blankCount+piece.toString());
                 blankCount = 0;
             } else {
-                sb.append(piece.toString());
+                sb.append(piece);
             }
 
             if (i + 1 == board[row].length && blankCount > 0) {
@@ -391,27 +397,76 @@ public class Board {
         return sb.toString();
     }
 
-
-
-    public Spot findCheckPiece(){
-        if(getKing(true)!=null && getKing(true).inCheck(this)){
-            for (Spot[] spots : getBoard()) {
-                for (Spot spot : spots) {
-                    if (spot.getPiece() != null && !(spot.getPiece() instanceof King) && !spot.getPiece().isWhite() && spot.getPiece().canMove(this, spot, this.getKing(true).getSpot(this), false)) {
-                        return spot;
-                    }
+    private void updateEnPassant(){
+        for(Spot[] spots:this.getBoard()){
+            for(Spot spot:spots){
+                if((spot.getPiece() instanceof EnPassant) && ((EnPassant) spot.getPiece()).getLiveTimer() == 0){
+                    spot.setPiece(null);
                 }
             }
         }
-        if(getKing(false)!=null && getKing(false).inCheck(this)){
-            for (Spot[] spots : getBoard()) {
-                for (Spot spot : spots) {
-                    if (spot.getPiece() != null && !(spot.getPiece() instanceof King) && spot.getPiece().isWhite() && spot.getPiece().canMove(this, spot, this.getKing(false).getSpot(this), false)) {
-                        return spot;
+    }
+    private String getFenEnPassant(){
+        String out = "-";
+        for(Spot[] spots:getBoard()){
+            for(Spot spot:spots){
+                if(spot.getPiece() instanceof EnPassant){
+                    switch (spot.getX()){
+                        case 0:
+                            out = "a";
+                            break;
+                        case 1:
+                            out = "b";
+                            break;
+                        case 2:
+                            out = "c";
+                            break;
+                        case 3:
+                            out = "d";
+                            break;
+                        case 4:
+                            out = "e";
+                            break;
+                        case 5:
+                            out = "f";
+                            break;
+                        case 6:
+                            out = "g";
+                            break;
+                        case 7:
+                            out = "h";
+                            break;
                     }
+                    switch (spot.getY()){
+                        case 0:
+                            out += "1";
+                            break;
+                        case 1:
+                            out += "2";
+                            break;
+                        case 2:
+                            out += "3";
+                            break;
+                        case 3:
+                            out += "4";
+                            break;
+                        case 4:
+                            out += "5";
+                            break;
+                        case 5:
+                            out += "6";
+                            break;
+                        case 6:
+                            out += "7";
+                            break;
+                        case 7:
+                            out += "8";
+                            break;
+                    }
+                    return out;
                 }
             }
         }
-        return null;
+        return out;
     }
 }

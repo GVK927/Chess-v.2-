@@ -10,11 +10,9 @@ public class Bishop extends Piece {
 
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
-        if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
+        if (end.getPiece() != null && !(end.getPiece() instanceof EnPassant) && end.getPiece().isWhite() == this.isWhite()) {
             return false;
-        } /*else if (checkKingInCheck && board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board) *//*&& end != board.findCheckPiece()*//*)) {
-            return false;
-        }*/
+        }
 
         if (checkKingInCheck) {
             Spot tempSpot = this.getSpot(board);
@@ -23,7 +21,7 @@ public class Bishop extends Piece {
             end.setPiece(this);
             start.setPiece(null);
 
-            if (board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board)/* && end != board.findCheckPiece()*/) {
+            if (board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board)) {
                 end.setPiece(tempPiece);
                 tempSpot.setPiece(this);
                 return false;
@@ -58,7 +56,7 @@ public class Bishop extends Piece {
             int yIndex = start.getY() + yMutator;
 
             while (xIndex != end.getX() && yIndex != end.getY()) {
-                if (board.getSpot(xIndex, yIndex).getPiece() != null && xIndex != end.getX() && yIndex != end.getY()) {
+                if (board.getSpot(xIndex, yIndex).getPiece() != null && !(board.getSpot(xIndex, yIndex).getPiece() instanceof EnPassant) && xIndex != end.getX() && yIndex != end.getY()) {
                     return false;
                 }
 

@@ -9,11 +9,9 @@ public class Queen extends Piece {
 	 }
 
 	 @Override public boolean canMove (Board board, Spot start, Spot end) {
-		  if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
+		  if (end.getPiece() != null && !(end.getPiece() instanceof EnPassant) && end.getPiece().isWhite() == this.isWhite()) {
 				return false;
-		  } /*else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece()) {
-			  return false;
-		  }*/
+		  }
 
 		  if (checkKingInCheck) {
 				Spot tempSpot = this.getSpot(board);
@@ -22,7 +20,7 @@ public class Queen extends Piece {
 				end.setPiece(this);
 				start.setPiece(null);
 
-				if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board)/* && end != board.findCheckPiece()*/)) {
+				if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board))) {
 					 end.setPiece(tempPiece);
 					 tempSpot.setPiece(this);
 					 return false;
@@ -36,14 +34,14 @@ public class Queen extends Piece {
 
 		  if (start.getX() == end.getX()) {
 				for (int i = Math.min(start.getY(), end.getY()) + 1; i < Math.max(start.getY(), end.getY()); i++) {
-					 if (board.getSpot(start.getX(), i).getPiece() != null) {
+					 if (board.getSpot(start.getX(), i).getPiece() != null && !(board.getSpot(start.getX(), i).getPiece() instanceof EnPassant)) {
 						  return false;
 					 }
 				}
 				return true;
 		  } else if (start.getY() == end.getY()) {
 				for (int i = Math.min(start.getX(), end.getX()) + 1; i < Math.max(start.getX(), end.getX()); i++) {
-					 if (board.getSpot(i, start.getY()).getPiece() != null) {
+					 if (board.getSpot(i, start.getY()).getPiece() != null && !(board.getSpot(i, start.getY()).getPiece() instanceof EnPassant)) {
 						  return false;
 					 }
 				}
@@ -71,7 +69,7 @@ public class Queen extends Piece {
 			  int yIndex = start.getY() + yMutator;
 
 			  while (xIndex != end.getX() && yIndex != end.getY()) {
-				  if (board.getSpot(xIndex, yIndex).getPiece() != null && xIndex != end.getX() && yIndex != end.getY()) {
+				  if (board.getSpot(xIndex, yIndex).getPiece() != null && !(board.getSpot(xIndex, yIndex).getPiece() instanceof EnPassant) && xIndex != end.getX() && yIndex != end.getY()) {
 					  return false;
 				  }
 

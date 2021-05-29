@@ -12,13 +12,11 @@ public class Rook extends Piece {
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
         if(end.getPiece() != null) {
-            if (end.getPiece().isWhite() == this.isWhite()) {
+            if (end.getPiece().isWhite() == this.isWhite() && !(end.getPiece() instanceof EnPassant)) {
                 // can't kill piece of same color
                 return false;
             }
-        } /*else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece()) {
-            return false;
-        }*/
+        }
 
         if (checkKingInCheck) {
             Spot tempSpot = this.getSpot(board);
@@ -27,7 +25,7 @@ public class Rook extends Piece {
             end.setPiece(this);
             start.setPiece(null);
 
-            if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board)/* && end != board.findCheckPiece()*/)) {
+            if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board))) {
                 end.setPiece(tempPiece);
                 tempSpot.setPiece(this);
                 return false;
@@ -43,14 +41,14 @@ public class Rook extends Piece {
             //moving vertically
             if(start.getY() > end.getY()) {
                 for(int i = start.getY() - 1; i > end.getY(); i--) {
-                    if(board.getSpot(start.getX(), i).getPiece() != null) {
+                    if(board.getSpot(start.getX(), i).getPiece() != null && !(board.getSpot(start.getX(), i).getPiece() instanceof EnPassant)) {
                         //if there are pieces in the way
                         return false;
                     }
                 }
             } else {
                 for(int i = start.getY() + 1; i < end.getY(); i++) {
-                    if(board.getSpot(start.getX(), i).getPiece() != null) {
+                    if(board.getSpot(start.getX(), i).getPiece() != null && !(board.getSpot(start.getX(), i).getPiece() instanceof EnPassant)) {
                         //if there are pieces in the way
                         return false;
                     }
@@ -60,14 +58,14 @@ public class Rook extends Piece {
             //moving horizontally
             if(start.getX() > end.getX()) {
                 for(int i = start.getX() - 1; i > end.getX(); i--) {
-                    if(board.getSpot(i, start.getY()).getPiece() != null) {
+                    if(board.getSpot(i, start.getY()).getPiece() != null && !(board.getSpot(i, start.getY()).getPiece() instanceof EnPassant)) {
                         //if there are pieces in the way
                         return false;
                     }
                 }
             } else {
                 for(int i = start.getX() + 1; i < end.getX(); i++) {
-                    if(board.getSpot(i, start.getY()).getPiece() != null) {
+                    if(board.getSpot(i, start.getY()).getPiece() != null && !(board.getSpot(i, start.getY()).getPiece() instanceof EnPassant)) {
                         //if there are pieces in the way
                         return false;
                     }

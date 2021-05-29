@@ -62,7 +62,7 @@ public class King extends Piece {
                 return true;
             } else if (end.getX() == 6) {
                 for (int i = getSpot(board).getX() + 1; i < 7; i++) {
-                    if (board.getSpot(i, getSpot(board).getY()).getPiece() != null) {
+                    if (board.getSpot(i, getSpot(board).getY()).getPiece() != null && !(board.getSpot(i, getSpot(board).getY()).getPiece() instanceof EnPassant)) {
                         return false;
                     }
                 }
@@ -89,7 +89,7 @@ public class King extends Piece {
             }
         }
 
-        if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
+        if (end.getPiece() != null && !(end.getPiece() instanceof EnPassant) && end.getPiece().isWhite() == this.isWhite()) {
             return false;
         }
 
@@ -136,7 +136,7 @@ public class King extends Piece {
     public boolean inCheck(Board board) {
         for (Spot[] spots : board.getBoard()) {
             for (Spot spot : spots) {
-                if (spot.getPiece() != null && !(spot.getPiece() instanceof King) && spot.getPiece() != this && spot.getPiece().isWhite() != isWhite() && spot.getPiece().canMove(board, spot, this.getSpot(board), false)) {
+                if (spot.getPiece() != null && !(spot.getPiece() instanceof EnPassant) && !(spot.getPiece() instanceof King) && spot.getPiece() != this && spot.getPiece().isWhite() != isWhite() && spot.getPiece().canMove(board, spot, this.getSpot(board), false)) {
                     return true; //if any piece on the board can kill the king after it has made its move, you will be unable to make the move.
                 }
             }
@@ -149,8 +149,8 @@ public class King extends Piece {
             for (Spot[] spots : board.getBoard()) {
                 for (Spot spot : spots) {
 
-                    if(spot.getPiece()!=null && spot.getPiece().canMove(board, board.findCheckPiece()))
-                        return false;
+                    /*if(spot.getPiece()!=null && spot.getPiece().canMove(board, board.findCheckPiece()))
+                        return false;*/
 
 
                     if (this.canMove(board, spot)) {

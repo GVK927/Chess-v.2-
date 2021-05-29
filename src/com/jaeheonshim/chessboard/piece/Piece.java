@@ -12,7 +12,7 @@ import com.jaeheonshim.chessboard.Square;
 public abstract class Piece {
     private boolean killed = false;
     private boolean moved = false;
-    private boolean white;
+    protected boolean white;
     protected boolean checkKingInCheck = true;
 
     public Piece(boolean white) {
