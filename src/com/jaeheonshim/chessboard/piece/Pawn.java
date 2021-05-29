@@ -13,9 +13,9 @@ public class Pawn extends Piece {
 
 		  if (end.getX() > 8 || end.getX() < 0 || end.getY() > 8 || end.getY() < 0) {
 				return false;
-		  } else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece()) {
+		  } /*else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board) *//*&& end != board.findCheckPiece()*//*) {
 				return false;
-		  }
+		  }*/
 
 		  if (checkKingInCheck) {
 				Spot tempSpot = this.getSpot(board);
@@ -24,7 +24,7 @@ public class Pawn extends Piece {
 				end.setPiece(this);
 				start.setPiece(null);
 
-				if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece())) {
+				if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board)/* && end != board.findCheckPiece()*/)) {
 					 end.setPiece(tempPiece);
 					 tempSpot.setPiece(this);
 					 return false;

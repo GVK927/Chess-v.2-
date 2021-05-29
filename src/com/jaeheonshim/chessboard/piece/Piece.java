@@ -112,4 +112,14 @@ public abstract class Piece {
      */
     @Override
     public abstract String toString();
+
+    /*protected boolean canRemoveCheck(Board board){
+        for(Spot[] spots:board.getBoard()){
+            for(Spot spot:spots){
+                if(canMove(board, spot)){
+
+                }
+            }
+        }
+    }*/
 }

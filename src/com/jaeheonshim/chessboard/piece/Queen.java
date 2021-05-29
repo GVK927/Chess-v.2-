@@ -11,9 +11,9 @@ public class Queen extends Piece {
 	 @Override public boolean canMove (Board board, Spot start, Spot end) {
 		  if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
 				return false;
-		  } else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece()) {
+		  } /*else if (checkKingInCheck && board.getKing(isWhite()) != null && board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece()) {
 			  return false;
-		  }
+		  }*/
 
 		  if (checkKingInCheck) {
 				Spot tempSpot = this.getSpot(board);
@@ -22,7 +22,7 @@ public class Queen extends Piece {
 				end.setPiece(this);
 				start.setPiece(null);
 
-				if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board) && end != board.findCheckPiece())) {
+				if (board.getKing(isWhite()) != null && (board.getKing(isWhite()).inCheck(board)/* && end != board.findCheckPiece()*/)) {
 					 end.setPiece(tempPiece);
 					 tempSpot.setPiece(this);
 					 return false;
@@ -49,23 +49,35 @@ public class Queen extends Piece {
 				}
 				return true;
 		  } else if (Math.abs(start.getX() - end.getX()) == Math.abs(start.getY() - end.getY())) {
-				int lowerX = Math.min(start.getX(), end.getX());
-				int upperX = Math.max(start.getX(), end.getX());
+			  int xMutator;
+			  int yMutator;
 
-				int lowerY = Math.min(start.getY(), end.getY());
-				int upperY = Math.max(start.getY(), end.getY());
+			  if(start.getX() < end.getX()) {
+				  // Moving to the right
+				  xMutator = 1;
+			  } else {
+				  xMutator = -1;
+			  }
 
-				int xIndex = lowerX + 1;
-				int yIndex = lowerY + 1;
+			  if(start.getY() < end.getY()) {
+				  // if moving up
+				  yMutator = 1;
+			  } else {
+				  yMutator = -1;
+			  }
 
-				while (xIndex < upperX && yIndex < upperY) {
-					 if (board.getSpot(xIndex, yIndex).getPiece() != null) {
-						  return false;
-					 }
 
-					 xIndex++;
-					 yIndex++;
-				}
+			  int xIndex = start.getX() + xMutator;
+			  int yIndex = start.getY() + yMutator;
+
+			  while (xIndex != end.getX() && yIndex != end.getY()) {
+				  if (board.getSpot(xIndex, yIndex).getPiece() != null && xIndex != end.getX() && yIndex != end.getY()) {
+					  return false;
+				  }
+
+				  xIndex += xMutator;
+				  yIndex += yMutator;
+			  }
 				return true;
 		  } else {
 				return false;
