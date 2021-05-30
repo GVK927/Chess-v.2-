@@ -13,6 +13,7 @@ public class MainPanel {
         chessPanelContainer.setLayout(null);
         chessPanelContainer.add(chessPanel);
         movesList.setListData(new Vector());
+        movesList.setModel();
     }
 
     public JPanel getRootPanel () {

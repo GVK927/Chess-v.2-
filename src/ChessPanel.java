@@ -126,8 +126,7 @@ public class ChessPanel extends JPanel{
                     new WinDialog(game, false);
                 if(board.getKing(false).inCheckmate(board))
                     new WinDialog(game, true);
-                movesRecord.add(board.getFenRecord());
-                game.getGui().getMovesList().setListData(movesRecord);
+
             }
 
             @Override
