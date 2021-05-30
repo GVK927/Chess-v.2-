@@ -1,7 +1,6 @@
 import javax.swing.*;
-import java.io.Serializable;
 
-public class GameGUI extends JFrame implements Serializable {
+public class GameGUI extends JFrame{
     public static final int WIDTH = 758;
     public static final int HEIGHT = 758;
     private MainPanel mainPanel;
@@ -31,5 +30,8 @@ public class GameGUI extends JFrame implements Serializable {
     }
     public JList<String> getMovesList(){
         return mainPanel.getMovesList();
+    }
+    public void setMainPanel (MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
     }
 }

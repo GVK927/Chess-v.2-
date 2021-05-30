@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class ChessPanel extends JPanel implements Serializable {
+public class ChessPanel extends JPanel {
 
     private BufferedImage board_img;
     private Spot[][] pieces;

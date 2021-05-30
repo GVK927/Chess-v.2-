@@ -6,7 +6,7 @@ import java.util.Vector;
 public class Game implements Serializable {
     private Board game_board;
     private boolean white_turn;
-    private GameGUI gui;
+    private transient GameGUI gui;
 
     public Board getGameBoard () {
         return game_board;
@@ -19,6 +19,9 @@ public class Game implements Serializable {
     }
     public GameGUI getGui () {
         return gui;
+    }
+    public void setGui (GameGUI gui) {
+        this.gui = gui;
     }
 
     private static final long serialVersionUID = 123456;

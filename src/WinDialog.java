@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.Serializable;
 
-public class WinDialog extends JDialog implements Serializable {
+public class WinDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JLabel win_message;
@@ -24,4 +23,5 @@ public class WinDialog extends JDialog implements Serializable {
         setVisible(true);
         setFocusable(true);
     }
+
 }
