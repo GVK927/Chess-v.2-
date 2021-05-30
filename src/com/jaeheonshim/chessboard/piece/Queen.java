@@ -3,7 +3,9 @@ package com.jaeheonshim.chessboard.piece;
 import com.jaeheonshim.chessboard.Board;
 import com.jaeheonshim.chessboard.Spot;
 
-public class Queen extends Piece {
+import java.io.Serializable;
+
+public class Queen extends Piece implements Serializable {
 	 public Queen (boolean white) {
 		  super(white);
 	 }

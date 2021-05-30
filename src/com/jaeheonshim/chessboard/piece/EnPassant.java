@@ -3,7 +3,9 @@ package com.jaeheonshim.chessboard.piece;
 import com.jaeheonshim.chessboard.Board;
 import com.jaeheonshim.chessboard.Spot;
 
-public class EnPassant extends Piece{
+import java.io.Serializable;
+
+public class EnPassant extends Piece implements Serializable {
     private Spot parentPawn;
     private int liveTimer;
 

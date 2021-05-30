@@ -9,10 +9,11 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class ChessPanel extends JPanel{
+public class ChessPanel extends JPanel implements Serializable {
 
     private BufferedImage board_img;
     private Spot[][] pieces;

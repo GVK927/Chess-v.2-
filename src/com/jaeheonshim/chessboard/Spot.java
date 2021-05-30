@@ -2,6 +2,7 @@ package com.jaeheonshim.chessboard;
 
 import com.jaeheonshim.chessboard.piece.Piece;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Objects;
  *
  * @author jaeheonshim
  */
-public class Spot {
+public class Spot implements Serializable {
     private Piece piece;
     private int x, y;
 

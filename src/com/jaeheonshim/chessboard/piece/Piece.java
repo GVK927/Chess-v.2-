@@ -4,12 +4,14 @@ import com.jaeheonshim.chessboard.Board;
 import com.jaeheonshim.chessboard.Spot;
 import com.jaeheonshim.chessboard.Square;
 
+import java.io.Serializable;
+
 /**
  * Represents a chess piece.
  *
  * @author jaeheonshim
  */
-public abstract class Piece {
+public abstract class Piece implements Serializable {
     private boolean killed = false;
     protected boolean moved = false;
     protected boolean white;

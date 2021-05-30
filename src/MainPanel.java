@@ -1,11 +1,9 @@
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
-import java.io.File;
+import java.io.*;
 import java.util.Vector;
 
-public class MainPanel {
+public class MainPanel implements Serializable {
     private JList movesList;
     private JPanel chessPanelContainer;
     private JPanel rootPanel;
@@ -14,29 +12,47 @@ public class MainPanel {
     private JButton saveBtn;
     private ChessPanel chessPanel;
     private JFileChooser fileChooser;
+    private Game game;
 
     public MainPanel(Game game){
+        this.game = game;
         this.chessPanel = new ChessPanel(game);
         chessPanelContainer.setLayout(null);
         chessPanelContainer.add(chessPanel);
         movesList.setListData(new Vector());
         fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Файл сохранения .dat", ".dat"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Файл сохранения .dat", "dat"));
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setCurrentDirectory(new File("Saves"));
 
         newBtn.addActionListener(l->{
-            game.restart();
+            this.game.restart();
         });
         openBtn.addActionListener(l->{
             fileChooser.setDialogTitle("Загрузка игры");
             if(fileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
-
+                try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileChooser.getSelectedFile())))
+                {
+                    this.game = (Game) ois.readObject();
+                    this.game.getGui().getChessPanel().update();
+                    System.out.println("2");
+                }
+                catch(Exception ex){
+                    System.out.println(ex.getMessage());
+                }
             }
         });
         saveBtn.addActionListener(l->{
             fileChooser.setDialogTitle("Сохранение игры");
-            if(fileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
-
+            if(fileChooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
+                try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream((fileChooser.getSelectedFile().getPath()+".dat"))))
+                {
+                    oos.writeObject(game);
+                }
+                catch(Exception ex){
+                    System.out.println(ex.getMessage());
+                    System.out.println("shit not working");
+                }
             }
         });
     }

@@ -1,8 +1,9 @@
 import com.jaeheonshim.chessboard.Board;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Game {
+public class Game implements Serializable {
     private Board game_board;
     private boolean white_turn;
     private GameGUI gui;
@@ -19,6 +20,8 @@ public class Game {
     public GameGUI getGui () {
         return gui;
     }
+
+    private static final long serialVersionUID = 123456;
 
     public Game(){
         game_board = new Board();

@@ -3,7 +3,9 @@ package com.jaeheonshim.chessboard.piece;
 import com.jaeheonshim.chessboard.Board;
 import com.jaeheonshim.chessboard.Spot;
 
-public class Knight extends Piece {
+import java.io.Serializable;
+
+public class Knight extends Piece implements Serializable {
 	 private final int[] movesX = new int[] {-1, -2, -2, -1, +1, +2, +2, +1};
 	 private final int[] movesY = new int[] {+2, +1, -1, -2, -2, -1, +1, +2};
 

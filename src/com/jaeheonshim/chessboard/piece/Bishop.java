@@ -3,7 +3,9 @@ package com.jaeheonshim.chessboard.piece;
 import com.jaeheonshim.chessboard.Board;
 import com.jaeheonshim.chessboard.Spot;
 
-public class Bishop extends Piece {
+import java.io.Serializable;
+
+public class Bishop extends Piece implements Serializable {
     public Bishop(boolean white) {
         super(white);
     }

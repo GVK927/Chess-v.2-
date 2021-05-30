@@ -2,6 +2,7 @@ package com.jaeheonshim.chessboard;
 
 import com.jaeheonshim.chessboard.piece.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author jaeheonshim
  */
-public class Board {
+public class Board implements Serializable {
     private Spot[][] board = new Spot[8][8];
     private List<Move> moves = new ArrayList<>();
 

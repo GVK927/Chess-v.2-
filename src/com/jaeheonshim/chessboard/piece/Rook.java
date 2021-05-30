@@ -4,7 +4,9 @@ import com.jaeheonshim.chessboard.Board;
 import com.jaeheonshim.chessboard.Spot;
 import com.jaeheonshim.chessboard.piece.Piece;
 
-public class Rook extends Piece {
+import java.io.Serializable;
+
+public class Rook extends Piece implements Serializable {
     public Rook(boolean white) {
         super(white);
     }

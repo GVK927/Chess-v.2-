@@ -1,8 +1,9 @@
 package com.jaeheonshim.chessboard;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Move {
+public class Move implements Serializable {
     private Spot start;
     private Spot end;
     private boolean whiteMove;

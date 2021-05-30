@@ -1,6 +1,7 @@
 import javax.swing.*;
+import java.io.Serializable;
 
-public class GameGUI extends JFrame {
+public class GameGUI extends JFrame implements Serializable {
     public static final int WIDTH = 758;
     public static final int HEIGHT = 758;
     private MainPanel mainPanel;

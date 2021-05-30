@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-public class WinDialog extends JDialog {
+import java.io.Serializable;
+
+public class WinDialog extends JDialog implements Serializable {
     private JPanel contentPane;
     private JButton buttonOK;
     private JLabel win_message;
