@@ -10,6 +10,7 @@ public class MainPanel{
     private JButton newBtn;
     private JButton openBtn;
     private JButton saveBtn;
+    private JButton fiftyRuleBtn;
     private ChessPanel chessPanel;
     private JFileChooser fileChooser;
     private Game game;
@@ -48,16 +49,21 @@ public class MainPanel{
                 }
             }
         });
+        fiftyRuleBtn.addActionListener(l ->{
+            new WinDialog(this.game);
+        });
+    }
+
+    public void setFiftyRuleOpportunity(boolean flag){
+        fiftyRuleBtn.setEnabled(flag);
     }
 
     public JPanel getRootPanel () {
         return rootPanel;
     }
-
     public ChessPanel getChessPanel () {
         return chessPanel;
     }
-
     public JList getMovesList () {
         return movesList;
     }

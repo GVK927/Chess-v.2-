@@ -32,6 +32,7 @@ public class Game implements Serializable {
     }
 
     public void restart(){
+        gui.getMainPanel().setFiftyRuleOpportunity(false);
         gui.getMovesList().setListData(new Vector<>());
         white_turn = true;
         game_board.resetBoard();

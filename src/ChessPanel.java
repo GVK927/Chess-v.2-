@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -94,7 +93,7 @@ public class ChessPanel extends JPanel {
         this.board = game.getGameBoard();
         this.pieces = board.getBoard();
 
-        setBounds(0, 0, GameGUI.HEIGHT, GameGUI.HEIGHT);
+        setBounds(0, 0, GameGUI.WIDTH, GameGUI.HEIGHT);
         setLayout(null);
         setFocusable(true);
         setPreferredSize(new Dimension(GameGUI.WIDTH, GameGUI.HEIGHT));
@@ -118,6 +117,7 @@ public class ChessPanel extends JPanel {
                     return;
                 }
                 if(board.move(pieces[y1][x1], pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())])) {
+                    game.getGui().getMainPanel().setFiftyRuleOpportunity(board.getHalfmovesCount()>=50);
                     game.setWhite_turn(! game.isWhite_turn());
                     movesRecord.add(board.getFenRecord());
                     JList<String> movesList = game.getGui().getMovesList();

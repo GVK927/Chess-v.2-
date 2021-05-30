@@ -34,12 +34,16 @@ public class GameGUI extends JFrame{
     public JList<String> getMovesList(){
         return mainPanel.getMovesList();
     }
+    public MainPanel getMainPanel () {
+        return mainPanel;
+    }
 
     public void load(File file){
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
                     this.game = (Game) ois.readObject();
                     this.game.setGui(this);
                     this.mainPanel = new MainPanel(this.game, this);
+                    this.mainPanel.setFiftyRuleOpportunity(this.game.getGameBoard().getHalfmovesCount()>=50);
                     setContentPane(this.mainPanel.getRootPanel());
                     revalidate();
                     repaint();

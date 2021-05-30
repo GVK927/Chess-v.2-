@@ -490,4 +490,8 @@ public class Board implements Serializable {
         }
         return out;
     }
+
+    public int getHalfmovesCount () {
+        return halfmoves_count;
+    }
 }

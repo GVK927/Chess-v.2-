@@ -23,5 +23,20 @@ public class WinDialog extends JDialog {
         setVisible(true);
         setFocusable(true);
     }
-
+    public WinDialog (Game game) {
+        setContentPane(contentPane);
+        this.win_message.setText("Ничья!");
+        setModal(true);
+        getRootPane().setDefaultButton(buttonOK);
+        setPreferredSize(new Dimension(300, 250));
+        pack();
+        setLocationRelativeTo(null);
+        buttonOK.addActionListener(e -> {
+            game.restart();
+            dispose();
+        });
+        setResizable(false);
+        setVisible(true);
+        setFocusable(true);
+    }
 }
