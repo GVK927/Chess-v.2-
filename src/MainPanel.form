@@ -110,6 +110,7 @@
                       <focusPainted value="false"/>
                       <icon value="Button Images/5480204-chess-queen-king-transparent-png-image-clipart-free-download-chess-queen-png-512_512_preview.png"/>
                       <text value=""/>
+                      <toolTipText value="Новая игра"/>
                     </properties>
                   </component>
                   <component id="344f6" class="javax.swing.JButton" binding="openBtn">
@@ -122,6 +123,7 @@
                       <focusPainted value="false"/>
                       <icon value="Button Images/open.png"/>
                       <text value=""/>
+                      <toolTipText value="Загрузить игру"/>
                     </properties>
                   </component>
                   <component id="d5c6f" class="javax.swing.JButton" binding="saveBtn">
@@ -134,6 +136,7 @@
                       <focusPainted value="false"/>
                       <icon value="Button Images/save.png"/>
                       <text value=""/>
+                      <toolTipText value="Сохранить игру"/>
                     </properties>
                   </component>
                 </children>

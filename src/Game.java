@@ -16,9 +16,6 @@ public class Game {
     public void setWhite_turn (boolean white_turn) {
         this.white_turn = white_turn;
     }
-    public void setGui (GameGUI gui) {
-        this.gui = gui;
-    }
     public GameGUI getGui () {
         return gui;
     }
