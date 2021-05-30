@@ -158,7 +158,8 @@ public class Board {
                 updateEnPassant();
                 return true;
             }
-        } else if (begin.getPiece() != null && begin.getPiece().canMove(this, begin, end)) {
+        }
+        if (begin.getPiece() != null && begin.getPiece().canMove(this, begin, end)) {
             boolean halfmove_flag = begin.getPiece() instanceof Pawn;
             if (end.getPiece() != null) {
                 if(end.getPiece() instanceof EnPassant && end.getPiece().isWhite() != begin.getPiece().isWhite()){
@@ -193,7 +194,6 @@ public class Board {
         } else {
             return false;
         }
-        return false;
     }
 
     /**
@@ -308,29 +308,30 @@ public class Board {
         fenBuilder.append(" ");
 
         boolean canCastle = false;
-        if(
+        if (
                 getSpot(4, 0).getPiece() != null &&
-                getSpot(7, 0).getPiece() != null &&
-                getSpot(0, 0).getPiece() != null &&
-                getSpot(4, 7).getPiece() != null &&
-                getSpot(7, 7).getPiece() != null &&
-                getSpot(0, 7).getPiece() != null
-        )
-        if (!getSpot(4, 0).getPiece().isMoved()&&!getSpot(7, 0).getPiece().isMoved()) {
-            canCastle = true;
-            fenBuilder.append("K");
-        }
-        if (!getSpot(4, 0).getPiece().isMoved()&&!getSpot(0, 0).getPiece().isMoved()) {
-            canCastle = true;
-            fenBuilder.append("Q");
-        }
-        if (!getSpot(4, 7).getPiece().isMoved()&&!getSpot(7, 7).getPiece().isMoved()) {
-            canCastle = true;
-            fenBuilder.append("k");
-        }
-        if (!getSpot(4, 7).getPiece().isMoved()&&!getSpot(0, 7).getPiece().isMoved()) {
-            canCastle = true;
-            fenBuilder.append("q");
+                        getSpot(7, 0).getPiece() != null &&
+                        getSpot(0, 0).getPiece() != null &&
+                        getSpot(4, 7).getPiece() != null &&
+                        getSpot(7, 7).getPiece() != null &&
+                        getSpot(0, 7).getPiece() != null
+        ){
+            if (! getSpot(4, 0).getPiece().isMoved() && ! getSpot(7, 0).getPiece().isMoved()) {
+                canCastle = true;
+                fenBuilder.append("K");
+            }
+            if (! getSpot(4, 0).getPiece().isMoved() && ! getSpot(0, 0).getPiece().isMoved()) {
+                canCastle = true;
+                fenBuilder.append("Q");
+            }
+            if (! getSpot(4, 7).getPiece().isMoved() && ! getSpot(7, 7).getPiece().isMoved()) {
+                canCastle = true;
+                fenBuilder.append("k");
+            }
+            if (! getSpot(4, 7).getPiece().isMoved() && ! getSpot(0, 7).getPiece().isMoved()) {
+                canCastle = true;
+                fenBuilder.append("q");
+            }
         }
 
         if(!canCastle) {

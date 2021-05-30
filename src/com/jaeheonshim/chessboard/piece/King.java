@@ -86,19 +86,6 @@ public class King extends Piece {
 
         return true;
     }
-    public boolean canCastle(Board board) {
-        if (!isMoved() && !inCheck(board)) {
-            for (Spot[] spots : board.getBoard()) {
-                for (Spot spot : spots) {
-                    if (spot.getPiece() instanceof Rook && spot.getPiece().isWhite() == isWhite() && !spot.getPiece().isMoved()) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
 
     public boolean inCheck(Board board) {
         for (Spot[] spots : board.getBoard()) {

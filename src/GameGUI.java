@@ -1,15 +1,15 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class GameGUI extends JFrame {
     public static final int WIDTH = 758;
     public static final int HEIGHT = 758;
-    private ChessPanel chessPanel;
+    private MainPanel mainPanel;
 
     private Game game;
 
     public GameGUI(Game game){
         this.game = game;
+        this.mainPanel = new MainPanel(game);
 
         setTitle("Chess");
         setBounds(200, 200, WIDTH, HEIGHT);
@@ -22,11 +22,13 @@ public class GameGUI extends JFrame {
     }
 
     private void initComponents(){
-        chessPanel = new ChessPanel(game);
-        getContentPane().add(chessPanel, BorderLayout.CENTER);
+        setContentPane(mainPanel.getRootPanel());
     }
 
     public ChessPanel getChessPanel () {
-        return chessPanel;
+        return mainPanel.getChessPanel();
+    }
+    public JList<String> getMovesList(){
+        return mainPanel.getMovesList();
     }
 }

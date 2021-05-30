@@ -6,6 +6,7 @@ public class WinDialog extends JDialog {
     private JLabel win_message;
 
     public WinDialog (Game game, boolean isWhiteWin) {
+        setTitle("Шах и мат!");
         setContentPane(contentPane);
         this.win_message.setText("Победа " + (isWhiteWin ? "белых" : "черных"));
         setModal(true);

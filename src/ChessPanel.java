@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Vector;
 
 public class ChessPanel extends JPanel{
 
@@ -18,6 +19,7 @@ public class ChessPanel extends JPanel{
     private HashMap<String, BufferedImage> pieces_images;
     private Board board;
     private Game game;
+    private Vector<String> movesRecord;
 
     private BufferedImage selection_frame;
     private BufferedImage possible_move_frame;
@@ -87,6 +89,7 @@ public class ChessPanel extends JPanel{
     }
 
     public ChessPanel(Game game){
+        this.movesRecord = new Vector<>();
         this.game = game;
         this.board = game.getGameBoard();
         this.pieces = board.getBoard();
@@ -123,7 +126,8 @@ public class ChessPanel extends JPanel{
                     new WinDialog(game, false);
                 if(board.getKing(false).inCheckmate(board))
                     new WinDialog(game, true);
-                System.out.println(board.getFenRecord());
+                movesRecord.add(board.getFenRecord());
+                game.getGui().getMovesList().setListData(movesRecord);
             }
 
             @Override
