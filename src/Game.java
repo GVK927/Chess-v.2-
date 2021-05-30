@@ -29,14 +29,12 @@ public class Game implements Serializable {
     public Game(){
         game_board = new Board();
         white_turn = true;
-        gui = new GameGUI(this);
     }
 
     public void restart(){
         gui.getMovesList().setListData(new Vector<>());
         white_turn = true;
         game_board.resetBoard();
-        System.out.println(game_board.toString());
         gui.getChessPanel().update();
     }
 }

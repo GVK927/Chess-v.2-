@@ -78,7 +78,6 @@ public class ChessPanel extends JPanel {
                 }
             }
         }
-        //System.out.println(board.toString());
     }
 
     private int translateCoords(int c){

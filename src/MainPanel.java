@@ -13,9 +13,12 @@ public class MainPanel{
     private ChessPanel chessPanel;
     private JFileChooser fileChooser;
     private Game game;
+    private GameGUI gui;
 
-    public MainPanel (Game game) {
+    public MainPanel (Game game, GameGUI gui) {
         this.game = game;
+        this.gui = gui;
+        System.out.println(this.gui);
         this.chessPanel = new ChessPanel(game);
         chessPanelContainer.setLayout(null);
         chessPanelContainer.add(chessPanel);
@@ -31,15 +34,7 @@ public class MainPanel{
         openBtn.addActionListener(l -> {
             fileChooser.setDialogTitle("Загрузка игры");
             if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileChooser.getSelectedFile()))) {
-                    GameGUI gui = game.getGui().cl
-                    this.game = (Game) ois.readObject();
-                    this.game.setGui(this.gui);
-                    this.gui.setMainPanel(new MainPanel(this.game));
-                    System.out.println("2");
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
-                }
+                this.gui.load(fileChooser.getSelectedFile());
             }
         });
         saveBtn.addActionListener(l -> {
@@ -66,5 +61,4 @@ public class MainPanel{
     public JList getMovesList () {
         return movesList;
     }
-
 }

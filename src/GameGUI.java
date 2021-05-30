@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 public class GameGUI extends JFrame{
     public static final int WIDTH = 758;
@@ -9,7 +12,7 @@ public class GameGUI extends JFrame{
 
     public GameGUI(Game game){
         this.game = game;
-        this.mainPanel = new MainPanel(game);
+        this.mainPanel = new MainPanel(game, this);
 
         setTitle("Chess");
         setBounds(200, 200, WIDTH, HEIGHT);
@@ -31,7 +34,17 @@ public class GameGUI extends JFrame{
     public JList<String> getMovesList(){
         return mainPanel.getMovesList();
     }
-    public void setMainPanel (MainPanel mainPanel) {
-        this.mainPanel = mainPanel;
+
+    public void load(File file){
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+                    this.game = (Game) ois.readObject();
+                    this.game.setGui(this);
+                    this.mainPanel = new MainPanel(this.game, this);
+                    setContentPane(this.mainPanel.getRootPanel());
+                    revalidate();
+                    repaint();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

@@ -7,6 +7,8 @@ public class Main{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        new Game();
+        Game game = new Game();
+        GameGUI gui = new GameGUI(game);
+        game.setGui(gui);
     }
 }
