@@ -13,7 +13,7 @@ public class GameGUI extends JFrame {
 
         setTitle("Chess");
         setBounds(200, 200, WIDTH, HEIGHT);
-        setResizable(false);
+        setResizable(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
         pack();

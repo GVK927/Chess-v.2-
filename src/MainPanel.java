@@ -1,11 +1,14 @@
 import javax.swing.*;
-import java.util.ArrayList;
+import java.awt.*;
 import java.util.Vector;
 
 public class MainPanel {
     private JList movesList;
     private JPanel chessPanelContainer;
     private JPanel rootPanel;
+    private JButton newBtn;
+    private JButton openBtn;
+    private JButton saveBtn;
     private ChessPanel chessPanel;
 
     public MainPanel(Game game){
@@ -13,7 +16,10 @@ public class MainPanel {
         chessPanelContainer.setLayout(null);
         chessPanelContainer.add(chessPanel);
         movesList.setListData(new Vector());
-        movesList.setModel();
+
+        newBtn.addActionListener(l->{
+            game.restart();
+        });
     }
 
     public JPanel getRootPanel () {

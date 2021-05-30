@@ -117,16 +117,20 @@ public class ChessPanel extends JPanel{
                     repaint();
                     return;
                 }
-                if(board.move(pieces[y1][x1], pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())]))
-                game.setWhite_turn(!game.isWhite_turn());
+                if(board.move(pieces[y1][x1], pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())])) {
+                    game.setWhite_turn(! game.isWhite_turn());
+                    movesRecord.add(board.getFenRecord());
+                    JList<String> movesList = game.getGui().getMovesList();
+                    movesList.setListData(movesRecord);
+                    movesList.scrollRectToVisible( movesList.getCellBounds(movesRecord.size()-1, movesRecord.size()-1));
+                    if(board.getKing(true).inCheckmate(board))
+                        new WinDialog(game, false);
+                    if(board.getKing(false).inCheckmate(board))
+                        new WinDialog(game, true);
+                }
                 isBeginning = true;
                 selected_x = -1;
                 repaint();
-                if(board.getKing(true).inCheckmate(board))
-                    new WinDialog(game, false);
-                if(board.getKing(false).inCheckmate(board))
-                    new WinDialog(game, true);
-
             }
 
             @Override

@@ -1,5 +1,7 @@
 import com.jaeheonshim.chessboard.Board;
 
+import java.util.Vector;
+
 public class Game {
     private Board game_board;
     private boolean white_turn;
@@ -28,6 +30,7 @@ public class Game {
     }
 
     public void restart(){
+        gui.getMovesList().setListData(new Vector<>());
         white_turn = true;
         game_board.resetBoard();
         System.out.println(game_board.toString());
