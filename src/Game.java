@@ -1,6 +1,8 @@
 import com.jaeheonshim.chessboard.Board;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -8,7 +10,8 @@ public class Game implements Serializable {
     private Board game_board;
     private boolean white_turn;
     private transient GameGUI gui;
-    private Date beginDate;
+    private String beginDate;
+    private DateFormat dateFormat;
     private int playTime;
 
     public Board getGameBoard () {
@@ -26,7 +29,7 @@ public class Game implements Serializable {
     public void setGui (GameGUI gui) {
         this.gui = gui;
     }
-    public Date getBeginDate () {
+    public String getBeginDate () {
         return beginDate;
     }
     public int getPlayTime () {
@@ -41,7 +44,8 @@ public class Game implements Serializable {
     public Game(){
         game_board = new Board();
         white_turn = true;
-        beginDate = new Date();
+        dateFormat = new SimpleDateFormat("d MMM yy HH:mm");
+        beginDate = dateFormat.format(new Date());
     }
 
     public void restart(){

@@ -17,5 +17,15 @@ public final class DataBase {
     }
     private DataBase(){}
 
-
+    public static void pushToDB(Game game, boolean whiteWin){
+        try {
+            statement.execute(
+                    "INSERT INTO 'games' " +
+                            "('date', 'white_win', 'moves_count', 'time') " +
+                            "VALUES ('" + game.getBeginDate() + "', '" + whiteWin + "', '" + game.getGameBoard().getMoves().size() + "', '" + game.getPlayTime() + "')"
+            );
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

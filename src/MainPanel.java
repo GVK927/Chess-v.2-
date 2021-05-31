@@ -35,7 +35,7 @@ public class MainPanel{
         this.chessPanel = new ChessPanel(game);
         this.timerFormat = new SimpleDateFormat("HH:mm:ss");
         this.time = 0;
-        this.timerFlag = false;
+        this.timerFlag = true;
         timerFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         chessPanelContainer.setLayout(null);
         chessPanelContainer.add(chessPanel);
@@ -57,7 +57,6 @@ public class MainPanel{
             this.gameTimer.setText("Времени прошло: "+timerFormat.format(new Date(time)));
             time+=1000;
         });
-        timer.start();
 
         timerBtn.addActionListener(l -> {
             if(timerFlag){
