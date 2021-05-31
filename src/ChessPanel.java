@@ -127,10 +127,18 @@ public class ChessPanel extends JPanel {
                     JList<String> movesList = game.getGui().getMovesList();
                     movesList.setListData(movesRecord);
                     movesList.scrollRectToVisible( movesList.getCellBounds(movesRecord.size()-1, movesRecord.size()-1));
-                    if(board.getKing(true).inCheckmate(board))
+                    if(board.getKing(true).inCheckmate(board)) {
+                        isBeginning = true;
+                        selected_x = -1;
+                        repaint();
                         new WinDialog(game, false);
-                    if(board.getKing(false).inCheckmate(board))
+                    }
+                    if(board.getKing(false).inCheckmate(board)) {
+                        isBeginning = true;
+                        selected_x = -1;
+                        repaint();
                         new WinDialog(game, true);
+                    }
                 }
                 isBeginning = true;
                 selected_x = -1;
