@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
-      <xy x="20" y="20" width="1136" height="772"/>
+      <xy x="20" y="20" width="1160" height="772"/>
     </constraints>
     <properties>
       <foreground color="-12828863"/>
@@ -46,7 +46,9 @@
             <maximum-size width="-1" height="758"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <foreground color="-12828863"/>
+        </properties>
         <border type="none"/>
         <children>
           <grid id="52e61" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -54,7 +56,9 @@
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <foreground color="-12828863"/>
+            </properties>
             <border type="none"/>
             <children>
               <scrollpane id="e8551">
@@ -68,6 +72,7 @@
                     <constraints/>
                     <properties>
                       <autoscrolls value="true"/>
+                      <foreground color="-12828863"/>
                       <maximumSize width="2147483647" height="562"/>
                     </properties>
                     <border type="none"/>
@@ -92,65 +97,90 @@
             <properties/>
             <border type="none"/>
             <children>
-              <grid id="b6aee" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="1fd47" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="350" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="5e945" class="javax.swing.JButton" binding="newBtn">
+                  <grid id="b6aee" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="-1" height="25"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="346" height="47"/>
                       </grid>
                     </constraints>
-                    <properties>
-                      <focusPainted value="false"/>
-                      <icon value="Button Images/5480204-chess-queen-king-transparent-png-image-clipart-free-download-chess-queen-png-512_512_preview.png"/>
-                      <text value=""/>
-                      <toolTipText value="Новая игра"/>
-                    </properties>
-                  </component>
-                  <component id="344f6" class="javax.swing.JButton" binding="openBtn">
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="5e945" class="javax.swing.JButton" binding="newBtn">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="-1" height="25"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <focusPainted value="false"/>
+                          <icon value="Button Images/5480204-chess-queen-king-transparent-png-image-clipart-free-download-chess-queen-png-512_512_preview.png"/>
+                          <text value=""/>
+                          <toolTipText value="Новая игра"/>
+                        </properties>
+                      </component>
+                      <component id="344f6" class="javax.swing.JButton" binding="openBtn">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="-1" height="25"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <focusPainted value="false"/>
+                          <icon value="Button Images/open.png"/>
+                          <text value=""/>
+                          <toolTipText value="Загрузить игру"/>
+                        </properties>
+                      </component>
+                      <component id="d5c6f" class="javax.swing.JButton" binding="saveBtn">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="-1" height="25"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <focusPainted value="false"/>
+                          <icon value="Button Images/save.png"/>
+                          <text value=""/>
+                          <toolTipText value="Сохранить игру"/>
+                        </properties>
+                      </component>
+                      <component id="1ffd5" class="javax.swing.JButton" binding="fiftyRuleBtn">
+                        <constraints>
+                          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="-1" height="25"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <enabled value="false"/>
+                          <focusPainted value="false"/>
+                          <icon value="Button Images/fiftyRule.png"/>
+                          <text value=""/>
+                          <toolTipText value="&lt;html&gt;Объявить ничью&lt;br&gt; по правилу 50-ти ходов&lt;/html&gt;"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <component id="23e36" class="javax.swing.JLabel" binding="moveMessageLabel">
                     <constraints>
-                      <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="-1" height="25"/>
-                      </grid>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="0" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <focusPainted value="false"/>
-                      <icon value="Button Images/open.png"/>
-                      <text value=""/>
-                      <toolTipText value="Загрузить игру"/>
-                    </properties>
-                  </component>
-                  <component id="d5c6f" class="javax.swing.JButton" binding="saveBtn">
-                    <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="-1" height="25"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <focusPainted value="false"/>
-                      <icon value="Button Images/save.png"/>
-                      <text value=""/>
-                      <toolTipText value="Сохранить игру"/>
-                    </properties>
-                  </component>
-                  <component id="1ffd5" class="javax.swing.JButton" binding="fiftyRuleBtn">
-                    <constraints>
-                      <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="-1" height="25"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <enabled value="false"/>
-                      <focusPainted value="false"/>
-                      <icon value="Button Images/fiftyRule.png"/>
-                      <text value=""/>
-                      <toolTipText value="&lt;html&gt;Объявить ничью&lt;br&gt; по правилу 50-ти ходов&lt;/html&gt;"/>
+                      <font size="24" style="1"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="0"/>
+                      <text value="Следующий ход:"/>
                     </properties>
                   </component>
                 </children>

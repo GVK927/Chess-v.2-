@@ -119,6 +119,7 @@ public class ChessPanel extends JPanel {
                 if(board.move(pieces[y1][x1], pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())])) {
                     game.getGui().getMainPanel().setFiftyRuleOpportunity(board.getHalfmovesCount()>=50);
                     game.setWhite_turn(! game.isWhite_turn());
+                    game.getGui().getMainPanel().getMoveMessageLabel().setText("Следующий ход: "+(game.isWhite_turn()?"белых":"черных"));
                     movesRecord.add(board.getFenRecord());
                     JList<String> movesList = game.getGui().getMovesList();
                     movesList.setListData(movesRecord);

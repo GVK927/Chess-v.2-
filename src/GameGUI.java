@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +15,11 @@ public class GameGUI extends JFrame{
         this.game = game;
         this.mainPanel = new MainPanel(game, this);
 
+        try {
+            setIconImage(ImageIO.read(new File("imgs/icon.png")));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         setTitle("Chess");
         setBounds(200, 200, WIDTH, HEIGHT);
         setResizable(true);

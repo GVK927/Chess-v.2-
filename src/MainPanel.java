@@ -11,6 +11,7 @@ public class MainPanel{
     private JButton openBtn;
     private JButton saveBtn;
     private JButton fiftyRuleBtn;
+    private JLabel moveMessageLabel;
     private ChessPanel chessPanel;
     private JFileChooser fileChooser;
     private Game game;
@@ -19,11 +20,11 @@ public class MainPanel{
     public MainPanel (Game game, GameGUI gui) {
         this.game = game;
         this.gui = gui;
-        System.out.println(this.gui);
         this.chessPanel = new ChessPanel(game);
         chessPanelContainer.setLayout(null);
         chessPanelContainer.add(chessPanel);
         movesList.setListData(new Vector());
+        moveMessageLabel.setText("Следующий ход: " + (game.isWhite_turn()?"белых":"черных"));
         fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("Файл сохранения .dat", "dat"));
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -66,5 +67,8 @@ public class MainPanel{
     }
     public JList getMovesList () {
         return movesList;
+    }
+    public JLabel getMoveMessageLabel () {
+        return moveMessageLabel;
     }
 }
