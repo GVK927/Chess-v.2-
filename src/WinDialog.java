@@ -34,6 +34,7 @@ public class WinDialog extends JDialog {
         setLocationRelativeTo(null);
         buttonOK.addActionListener(e -> {
             game.restart();
+            game.getGui().load();
             dispose();
         });
         setResizable(false);

@@ -58,4 +58,12 @@ public class GameGUI extends JFrame{
             ex.printStackTrace();
         }
     }
+    public void load(){
+            this.mainPanel = new MainPanel(this.game, this);
+            this.mainPanel.setFiftyRuleOpportunity(this.game.getGameBoard().getHalfmovesCount()>=50);
+            this.mainPanel.setTimerWhenLoaded();
+            setContentPane(this.mainPanel.getRootPanel());
+            revalidate();
+            repaint();
+    }
 }
