@@ -20,6 +20,7 @@ public class ChessPanel extends JPanel {
     private Board board;
     private Game game;
     private Vector<String> movesRecord;
+    private boolean enabled;
 
     private BufferedImage selection_frame;
     private BufferedImage possible_move_frame;
@@ -92,6 +93,7 @@ public class ChessPanel extends JPanel {
         this.game = game;
         this.board = game.getGameBoard();
         this.pieces = board.getBoard();
+        this.enabled = false;
 
         setBounds(0, 0, GameGUI.WIDTH, GameGUI.HEIGHT);
         setLayout(null);
@@ -103,6 +105,7 @@ public class ChessPanel extends JPanel {
             private int x1, y1;
             @Override
             public void mouseReleased (MouseEvent e) {
+                if(!enabled) return;
                 if(e.getX()<=20||e.getX()>=738||e.getY()<=20||e.getY()>=738) return;
                 if(isBeginning) {
                     if(pieces[translateChessCoords(getHeight()-e.getY())][translateChessCoords(e.getX())].getPiece()==null) return;
@@ -157,5 +160,8 @@ public class ChessPanel extends JPanel {
         this.board = this.game.getGameBoard();
         this.pieces = board.getBoard();
         repaint();
+    }
+    public void setEnable (boolean enabled) {
+        this.enabled = enabled;
     }
 }

@@ -50,6 +50,7 @@ public class GameGUI extends JFrame{
                     this.game.setGui(this);
                     this.mainPanel = new MainPanel(this.game, this);
                     this.mainPanel.setFiftyRuleOpportunity(this.game.getGameBoard().getHalfmovesCount()>=50);
+                    this.mainPanel.setTimerWhenLoaded();
                     setContentPane(this.mainPanel.getRootPanel());
                     revalidate();
                     repaint();
